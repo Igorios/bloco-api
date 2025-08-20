@@ -6,15 +6,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blocoapi.dto.UsuarioLogado;
 import com.blocoapi.jwt.JwtAuthenticationResponse;
 import com.blocoapi.jwt.JwtTokenProvider;
 import com.blocoapi.model.LoginRequest;
 import com.blocoapi.security.UserPrincipal;
+import com.blocoapi.service.UsuarioService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -25,6 +30,9 @@ public class LoginContoller {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -38,6 +46,11 @@ public class LoginContoller {
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
 
+    }
+
+    @GetMapping("/decode")
+    public UsuarioLogado dadosUsuarioLogado(HttpServletRequest request) {
+        return usuarioService.dadosUsuarioLogado(request); 
     }
 
 }

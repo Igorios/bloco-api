@@ -25,6 +25,7 @@ public class UserPrincipal implements UserDetails {
     private UserPrincipal(Usuario usuario) {
         this.idUsuario = usuario.getIdUsuario();
         this.nome = usuario.getNome();
+        this.email = usuario.getEmail();
         this.sobrenome = usuario.getSobrenome();
         this.password = usuario.getPassword();
 
