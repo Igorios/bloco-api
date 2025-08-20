@@ -32,7 +32,7 @@ public class JwtTokenProvider {
 
             return JWT.create()
                 .withSubject(userPrincipal.getNome())
-                .withClaim("idUsuario", userPrincipal.getIdUsuario())
+                .withClaim("idUsuario", userPrincipal.getIdUsuario().toString())
                 .withClaim("nome", userPrincipal.getNome())
                 .withClaim("sobrenome", userPrincipal.getSobrenome())
                 .withClaim("email", userPrincipal.getEmail())

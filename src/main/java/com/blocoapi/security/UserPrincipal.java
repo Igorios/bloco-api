@@ -1,6 +1,7 @@
 package com.blocoapi.security;
 
 import java.util.Collection;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,7 @@ import lombok.Getter;
 @Getter
 public class UserPrincipal implements UserDetails {
 
-    private Long idUsuario;
+    private UUID idUsuario;
     private String nome;
     private String sobrenome;
     private String email;

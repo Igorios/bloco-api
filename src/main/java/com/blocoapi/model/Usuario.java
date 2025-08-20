@@ -1,6 +1,7 @@
 package com.blocoapi.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.blocoapi.model.Role.Role;
 
@@ -17,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_usuario", updatable = false, nullable = false)
+    private UUID idUsuario;
 
     private String nome;
     private String sobrenome;

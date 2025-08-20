@@ -1,6 +1,7 @@
 package com.blocoapi.model.Role;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.blocoapi.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class Role {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_role")
-    private Long idRole;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_role", updatable = false, nullable = false)
+    private UUID idRole;
 
     private String nome;
 
