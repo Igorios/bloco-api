@@ -1,15 +1,18 @@
 package com.blocoapi.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.blocoapi.model.Usuario;
 import com.blocoapi.repository.UsuarioRepository;
 import com.blocoapi.service.UsuarioService;
 
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
@@ -33,6 +36,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return criandoUsuario;
 
+    }
+
+    @Override
+    public List<Usuario> todosUsuario() {
+        return usuarioRepository.findAll();
     }
     
 }
