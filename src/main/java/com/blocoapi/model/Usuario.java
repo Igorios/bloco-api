@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.blocoapi.model.Role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,10 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "id_role")
     )
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private List<Categoria> categorias;
     
 
 }
