@@ -1,6 +1,7 @@
 package com.blocoapi.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,20 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Categoria criarCategoria(Categoria categoria) {
         categoria.setFavorita(false);
         return categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public Categoria buscarPorUUID(String idCategoria) {
+
+        UUID uuid = UUID.fromString(idCategoria);
+
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(uuid);
+
+        if (!categoriaOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar essa categoria");
+        }
+        return categoriaOptional.get();
+        
     }
 
     

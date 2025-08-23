@@ -8,5 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface CategoriaService {
     public List<Categoria> todasCategorias(HttpServletRequest request);    
+    public Categoria buscarPorUUID(String idCategoria);
     public Categoria criarCategoria(Categoria categoria);
 }
