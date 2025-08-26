@@ -28,7 +28,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public List<Categoria> todasCategorias(HttpServletRequest request) {
         UsuarioLogado usuarioLogado = usuarioService.dadosUsuarioLogado(request);
 
-        String idUsuario = usuarioLogado.IdUsuario();
+        String idUsuario = usuarioLogado.idUsuario();
         UUID uuid = UUID.fromString(idUsuario);
         
         return categoriaRepository.findAllByUsuario_IdUsuario(uuid);
@@ -52,6 +52,19 @@ public class CategoriaServiceImpl implements CategoriaService {
         }
         return categoriaOptional.get();
         
+    }
+
+    @Override
+    public void deletarCategoria(String idCategoria) {
+        UUID uuid = UUID.fromString(idCategoria);
+
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(uuid);
+
+        if (!categoriaOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar essa categoria");
+        }
+
+        categoriaRepository.deleteById(uuid);
     }
 
     
