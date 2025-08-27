@@ -87,9 +87,15 @@ public class CategoriaServiceImpl implements CategoriaService {
             throw new RuntimeException("Não foi possivel encontrar essa categoria");
         }
 
-        BeanUtils.copyProperties(categoria, categoriaOptional.get(), "idCategoria");
+        // atualizando posts
+        categoria.getPosts().forEach(post -> post.setCategoria(categoria));
 
-        return categoriaRepository.save(categoria);
+        Categoria categoriaExistente = categoriaOptional.get();
+
+        // copia de categoria para categoriaExistente
+        BeanUtils.copyProperties(categoria, categoriaExistente, "idCategoria");
+
+        return categoriaRepository.save(categoriaExistente);
     }
 
 }
