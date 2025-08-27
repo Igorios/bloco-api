@@ -37,6 +37,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         List<Categoria> categorias = categoriaRepository.findAllByUsuario_IdUsuario(uuid);
 
+        categorias.forEach(categoria -> categoria.setPosts(new ArrayList<>()));
         categorias.sort(Comparator.comparing(Categoria::getFavorita).reversed());
 
         return categorias;
@@ -59,8 +60,9 @@ public class CategoriaServiceImpl implements CategoriaService {
         if (!categoriaOptional.isPresent()) {
             throw new RuntimeException("Não foi possivel encontrar essa categoria");
         }
-        return categoriaOptional.get();
 
+        Categoria categoriaEncontrada = categoriaOptional.get();
+        return categoriaEncontrada;
     }
 
     @Override
