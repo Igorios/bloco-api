@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,9 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         String idUsuario = usuarioLogado.idUsuario();
         UUID uuid = UUID.fromString(idUsuario);
-        
+
         List<Categoria> categorias = categoriaRepository.findAllByUsuario_IdUsuario(uuid);
-    
+
         categorias.sort(Comparator.comparing(Categoria::getFavorita).reversed());
 
         return categorias;
@@ -56,7 +57,7 @@ public class CategoriaServiceImpl implements CategoriaService {
             throw new RuntimeException("Não foi possivel encontrar essa categoria");
         }
         return categoriaOptional.get();
-        
+
     }
 
     @Override
@@ -72,6 +73,20 @@ public class CategoriaServiceImpl implements CategoriaService {
         categoriaRepository.deleteById(uuid);
     }
 
-    
-    
+    @Override
+    public Categoria atualizarCategoria(Categoria categoria, String idCategoria) {
+
+        UUID uuid = UUID.fromString(idCategoria);
+
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(uuid);
+
+        if (!categoriaOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar essa categoria");
+        }
+
+        BeanUtils.copyProperties(categoria, categoriaOptional.get(), "idCategoria");
+
+        return categoriaRepository.save(categoria);
+    }
+
 }

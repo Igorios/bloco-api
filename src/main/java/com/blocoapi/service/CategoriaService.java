@@ -10,5 +10,6 @@ public interface CategoriaService {
     public List<Categoria> todasCategorias(HttpServletRequest request);    
     public Categoria buscarPorUUID(String idCategoria);
     public Categoria criarCategoria(Categoria categoria);
+    public Categoria atualizarCategoria(Categoria categoria, String idCategoria);
     public void deletarCategoria(String idCategoria);
 }
