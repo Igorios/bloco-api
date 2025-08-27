@@ -1,5 +1,6 @@
 package com.blocoapi.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +32,11 @@ public class CategoriaServiceImpl implements CategoriaService {
         String idUsuario = usuarioLogado.idUsuario();
         UUID uuid = UUID.fromString(idUsuario);
         
-        return categoriaRepository.findAllByUsuario_IdUsuario(uuid);
+        List<Categoria> categorias = categoriaRepository.findAllByUsuario_IdUsuario(uuid);
+    
+        categorias.sort(Comparator.comparing(Categoria::getFavorita).reversed());
+
+        return categorias;
     }
 
     @Override
