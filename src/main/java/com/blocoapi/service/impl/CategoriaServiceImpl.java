@@ -1,5 +1,6 @@
 package com.blocoapi.service.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.blocoapi.dto.UsuarioLogado;
 import com.blocoapi.model.Categoria;
+import com.blocoapi.model.Post;
 import com.blocoapi.repository.CategoriaRepository;
 import com.blocoapi.service.CategoriaService;
 import com.blocoapi.service.UsuarioService;
@@ -43,6 +45,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public Categoria criarCategoria(Categoria categoria) {
         categoria.setFavorita(false);
+        categoria.getPosts().forEach(post -> post.setCategoria(categoria));
         return categoriaRepository.save(categoria);
     }
 

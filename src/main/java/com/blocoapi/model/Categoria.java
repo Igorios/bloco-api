@@ -1,5 +1,7 @@
 package com.blocoapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.*;
@@ -22,6 +24,9 @@ public class Categoria {
     private String titulo;
     private String descricao;
     private Boolean favorita;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
