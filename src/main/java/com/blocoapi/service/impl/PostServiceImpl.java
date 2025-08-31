@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
         }
 
         Post postExistente = postOptional.get();
-        BeanUtils.copyProperties(post, postExistente, "idPost");
+        BeanUtils.copyProperties(post, postExistente, "idPost", "categoria");
 
         return postRepository.save(postExistente);
 
