@@ -49,5 +49,19 @@ public class PostServiceImpl implements PostService {
         return postRepository.save(postExistente);
 
     }
+
+    @Override
+    public void deletarPost(String idPost) {
+        
+        UUID uuid = UUID.fromString(idPost);
+        Optional<Post> postOptional = postRepository.findById(uuid);
+
+        if (!postOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar esse post");
+        }
+
+        postRepository.deleteById(uuid);
+
+    }
     
 }

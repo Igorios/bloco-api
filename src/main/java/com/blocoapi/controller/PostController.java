@@ -2,6 +2,7 @@ package com.blocoapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,6 +31,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public Post autualizarPost(@PathVariable String idPost, @RequestBody Post post) {
         return postService.atualizarPost(idPost, post);
+    }
+    
+    @DeleteMapping("/{idPost}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarPost(@PathVariable String idPost) {
+        postService.deletarPost(idPost);
     }
 
 }
