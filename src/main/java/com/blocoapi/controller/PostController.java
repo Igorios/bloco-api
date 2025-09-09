@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blocoapi.dto.FavoritarPost;
 import com.blocoapi.model.Post;
 import com.blocoapi.service.PostService;
 
@@ -37,6 +39,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public void deletarPost(@PathVariable String idPost) {
         postService.deletarPost(idPost);
+    }
+    
+    @PatchMapping("/favoritar/{idPost}")
+    @ResponseStatus(HttpStatus.OK)
+    public Post favoritarPost(@PathVariable String idPost, @RequestBody FavoritarPost favoritarPost) {
+        return postService.favoritar(idPost, favoritarPost);
     }
 
 }

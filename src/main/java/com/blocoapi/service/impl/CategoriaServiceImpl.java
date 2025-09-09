@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.blocoapi.dto.UsuarioLogado;
 import com.blocoapi.model.Categoria;
-import com.blocoapi.model.Post;
 import com.blocoapi.repository.CategoriaRepository;
 import com.blocoapi.service.CategoriaService;
 import com.blocoapi.service.UsuarioService;

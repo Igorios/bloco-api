@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blocoapi.dto.FavoritarPost;
 import com.blocoapi.model.Post;
 import com.blocoapi.repository.PostRepository;
 import com.blocoapi.service.PostService;
@@ -61,6 +62,23 @@ public class PostServiceImpl implements PostService {
         }
 
         postRepository.deleteById(uuid);
+
+    }
+
+    @Override
+    public Post favoritar(String idPost, FavoritarPost favoritarPost) {
+
+        UUID uuid = UUID.fromString(idPost);
+        Optional<Post> postOptional = postRepository.findById(uuid);
+
+        if (!postOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar esse post");
+        }
+
+        Post post = postOptional.get();
+        post.setFavorita(favoritarPost.getFavoritar());
+
+        return postRepository.save(post); 
 
     }
     
