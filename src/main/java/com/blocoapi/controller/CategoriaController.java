@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blocoapi.dto.FavoritarCategoria;
 import com.blocoapi.model.Categoria;
 import com.blocoapi.service.CategoriaService;
 
@@ -55,6 +57,12 @@ public class CategoriaController {
     @ResponseStatus(HttpStatus.OK)
     public Categoria atualizarCategoria(@PathVariable String idCategoria, @RequestBody Categoria categoria) {
         return categoriaService.atualizarCategoria(categoria, idCategoria);
+    }
+    
+    @PatchMapping("/favoritar/{idCategoria}")
+    @ResponseStatus(HttpStatus.OK)
+    public Categoria favoritarCategoria(@PathVariable String idCategoria, @RequestBody FavoritarCategoria favoritarCategoria) {
+        return categoriaService.favoritar(idCategoria, favoritarCategoria);
     }
 
 }

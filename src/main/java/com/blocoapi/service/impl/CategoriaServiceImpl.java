@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blocoapi.dto.FavoritarCategoria;
 import com.blocoapi.dto.UsuarioLogado;
 import com.blocoapi.model.Categoria;
 import com.blocoapi.repository.CategoriaRepository;
@@ -97,6 +98,25 @@ public class CategoriaServiceImpl implements CategoriaService {
         BeanUtils.copyProperties(categoria, categoriaExistente, "idCategoria");
 
         return categoriaRepository.save(categoriaExistente);
+    }
+
+    @Override
+    public Categoria favoritar(String idCategoria, FavoritarCategoria favoritarCategoria) {
+        
+        UUID uuid = UUID.fromString(idCategoria);
+
+        Optional<Categoria> categoriaOptional = categoriaRepository.findById(uuid);
+
+        if (!categoriaOptional.isPresent()) {
+            throw new RuntimeException("Não foi possivel encontrar essa categoria");
+        }
+
+        Categoria categoria = categoriaOptional.get();
+        categoria.setFavorita(favoritarCategoria.getFavoritar());
+        categoria.setPosts(new ArrayList<>());
+
+        return categoriaRepository.save(categoria);
+       
     }
 
 }
