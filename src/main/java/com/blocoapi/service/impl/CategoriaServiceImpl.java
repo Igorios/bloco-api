@@ -62,6 +62,9 @@ public class CategoriaServiceImpl implements CategoriaService {
         }
 
         Categoria categoriaEncontrada = categoriaOptional.get();
+        categoriaEncontrada.getPosts().stream().forEach(post -> {
+            post.setConteudo(post.getConteudo().substring(0, 200));
+        });
         return categoriaEncontrada;
     }
 
