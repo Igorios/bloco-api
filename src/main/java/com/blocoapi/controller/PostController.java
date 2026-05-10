@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blocoapi.dto.AtualizarTituloPost;
 import com.blocoapi.dto.FavoritarPost;
 import com.blocoapi.model.Post;
 import com.blocoapi.service.PostService;
@@ -45,6 +46,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public Post favoritarPost(@PathVariable String idPost, @RequestBody FavoritarPost favoritarPost) {
         return postService.favoritar(idPost, favoritarPost);
+    }
+
+    @PatchMapping("/titulo/{idPost}")
+    @ResponseStatus(HttpStatus.OK)
+    public Post atualizarTitulo(@PathVariable String idPost, @RequestBody AtualizarTituloPost atualizarTituloPost) {
+        return postService.atualizarTitulo(idPost, atualizarTituloPost);
     }
 
 }
