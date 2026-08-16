@@ -13,7 +13,7 @@ public class PingController {
     @GetMapping("/ping")
     @ResponseStatus(HttpStatus.OK)
     public String ping() {
-        return "pong";
+        return "-pong-";
     }
     
 }
