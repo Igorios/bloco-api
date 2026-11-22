@@ -9,11 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blocoapi.dto.UsuarioLogado;
+import com.blocoapi.jwt.JwtTokenProvider;
 import com.blocoapi.model.Usuario;
 import com.blocoapi.repository.UsuarioRepository;
 import com.blocoapi.service.UsuarioService;
@@ -25,6 +23,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -64,9 +65,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
 
-            Algorithm algorithm = Algorithm.HMAC256("blog@sistema".getBytes());
-            JWTVerifier verifier = JWT.require(algorithm).build();
-            DecodedJWT decodedJWT = verifier.verify(token);
+            DecodedJWT decodedJWT = jwtTokenProvider.decodeToken(token);
 
             idUsuario = decodedJWT.getClaim("idUsuario").asString();
             email = decodedJWT.getClaim("email").asString();

@@ -1,5 +1,8 @@
 package com.blocoapi;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +16,11 @@ public class BlocoApiApplication {
 	}
 
 	private static void loadDotenv() {
+
+		String diretorio = Files.exists(Path.of(".env")) ? "." : "./bloco-api";
+
 		Dotenv dotenv = Dotenv.configure()
+				.directory(diretorio)
 				.ignoreIfMissing()
 				.load();
 

@@ -6,6 +6,7 @@ import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
@@ -19,10 +20,15 @@ import com.blocoapi.security.UserPrincipal;
 @Component
 public class JwtTokenProvider {
 
-    private static final String SECRET_KEY = "blog@sistema";
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC256(SECRET_KEY);
+        return Algorithm.HMAC256(secretKey);
+    }
+
+    public DecodedJWT decodeToken(String token) {
+        return JWT.require(getAlgorithm()).build().verify(token);
     }
 
     public String generateToken(UserPrincipal userPrincipal) {
